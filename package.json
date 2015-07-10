@@ -1,0 +1,42 @@
+{
+  "name": "node-address",
+  "version": "1.0.0",
+  "description": "Address and streets validator powered by SmartyStreets.",
+  "main": "smartystreets.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cayasso/smartystreets-api.git"
+  },
+  "keywords": [
+    "address",
+    "streets",
+    "location",
+    "usps",
+    "smartystreets",
+    "smarty",
+    "api",
+    "coords",
+    "state",
+    "city",
+    "county",
+    "maps",
+    "geolocation"
+  ],
+  "author": "Jonathan Brumley <cayasso@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cayasso/smartystreets-api/issues"
+  },
+  "homepage": "https://github.com/cayasso/smartystreets-api#readme",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "lodash": "^3.10.0",
+    "parse-address": "0.0.4",
+    "superagent": "^1.2.0",
+    "uid": "0.0.2",
+    "ustates": "^0.1.5"
+  }
+}
