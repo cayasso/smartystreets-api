@@ -1,7 +1,7 @@
 {
-  "name": "node-address",
-  "version": "1.0.0",
-  "description": "Address and streets validator powered by SmartyStreets.",
+  "name": "smartystreets-api",
+  "version": "0.1.0",
+  "description": "SmartyStreets API wrapper.",
   "main": "smartystreets.js",
   "scripts": {
     "test": "make test"
