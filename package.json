@@ -37,8 +37,7 @@
     "parse-address": "0.0.4",
     "superagent": "^1.2.0",
     "superagent-proxy": "^0.3.2",
-    "uid": "0.0.2",
-    "ustates": "^0.1.5"
+    "uid": "0.0.2"
   },
   "devDependencies": {
     "mocha": "^2.2.5",
