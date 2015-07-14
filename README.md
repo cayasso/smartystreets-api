@@ -1,6 +1,7 @@
 # smartystreets-api
 
-[![NPM version](https://badge.fury.io/js/mongo-oplog.png)](http://badge.fury.io/js/mongo-oplog)
+[![Build Status](https://travis-ci.org/cayasso/smartystreets-api.png?branch=master)](https://travis-ci.org/cayasso/smartystreets-api)
+[![NPM version](https://badge.fury.io/js/smartystreets-api.png)](http://badge.fury.io/js/smartystreets-api)
 
 Simple [SmartyStreets](https://smartystreets.com/) API wrapper.
 
