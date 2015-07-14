@@ -16,7 +16,9 @@ $ npm install smartystreets-api
 var SmartyStreets = require('smartystreets-api');
 var smartyStreets = SmartyStreets(AUTH_ID, AUTH_TOKEN, [options]);
 
-smartyStreets.address('440 Park Ave S, New York, NY, United States', function (err, data, raw) {
+var address = '440 Park Ave S, New York, NY, United States';
+
+smartyStreets.address(address, function (err, data, raw) {
   if (err) return console.error(err);
   console.log(data);
 });
