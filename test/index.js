@@ -41,10 +41,13 @@ describe('smartystreets-api', function () {
 
   describe('#address', function () {
 
+    var smarty = null;
     var query = null;
     var body = null;
 
     beforeEach(function () {
+
+      smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
       
       nock('https://api.smartystreets.com')
         .get('/street-address')
@@ -65,7 +68,6 @@ describe('smartystreets-api', function () {
     });
 
     it('should call GET on string input', function (done) {
-      var smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
       var obj = {
         street: '440 Park Ave S',
         city: 'New York',
@@ -79,7 +81,6 @@ describe('smartystreets-api', function () {
     });
 
     it('should call POST on array of strings input', function (done) {
-      var smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
       var obj = {
         street: '440 Park Ave S',
         city: 'New York',
@@ -93,7 +94,6 @@ describe('smartystreets-api', function () {
     });
 
     it('should call GET on singgle object input', function (done) {
-      var smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
       var obj = {
         input_id: 'abc',
         street: '440 Park Ave S',
@@ -108,16 +108,15 @@ describe('smartystreets-api', function () {
     });
 
     it('should call POST on array input', function (done) {
-      var smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
-      var obj = [{
+      var arr = [{
         input_id: 'abc',
         street: '440 Park Ave S',
         city: 'New York',
         state: 'NY'
       }];
-      smarty.address(obj, function (err) {
+      smarty.address(arr, function (err) {
         if (err) return done(err);
-        body[0].should.have.properties(obj[0]);
+        body[0].should.have.properties(arr[0]);
         done();
       });
     });
@@ -127,9 +126,13 @@ describe('smartystreets-api', function () {
 
   describe('#zipcode', function () {
 
+    var smarty = null;
     var query = null;
+    var body = null;
 
-    before(function () {
+    beforeEach(function () {
+      smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
+
       nock('https://api.smartystreets.com')
         .get('/zipcode')
         .query(true)
@@ -137,10 +140,18 @@ describe('smartystreets-api', function () {
           query = url.parse(uri, true).query;
           return {};
         });
+
+      nock('https://api.smartystreets.com')
+        .filteringRequestBody(/.*/, '*')
+          .post('/zipcode', '*')
+          .query(true)
+          .reply(200, function (uri, data) {
+            body = JSON.parse(data);
+            return [];
+          });
     });
 
     it('should call GET on input', function (done) {
-      var smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
       var obj = {
         input_id: 'abc',
         city: 'Los Angeles',
@@ -154,14 +165,30 @@ describe('smartystreets-api', function () {
       });
     });
 
+    it('should call POST on array input', function (done) {
+      var arr = [{
+        input_id: 'abc',
+        city: 'Los Angeles',
+        state: 'CA',
+        zipcode: '90023'
+      }];
+      smarty.zipcode(arr, function (err) {
+        if (err) return done(err);
+        body[0].should.have.properties(arr[0]);
+        done();
+      });
+    });
+
   });
 
   describe('#suggest', function () {
 
     var query = null;
+    var smarty = null;
 
     beforeEach(function () {
-      nock('https://api.smartystreets.com')
+      smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
+      nock('https://autocomplete-api.smartystreets.com')
         .get('/suggest')
         .query(true)
         .reply(200, function (uri, req) {
@@ -171,7 +198,6 @@ describe('smartystreets-api', function () {
     });
 
     it('should call GET with prefix params when passed string', function (done) {
-      var smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
       smarty.suggest('440 Park', function (err) {
         if (err) return done(err);
         query.should.have.properties({ prefix: '440 Park' });
@@ -180,7 +206,6 @@ describe('smartystreets-api', function () {
     });
 
     it('should call GET with prefix params when passed string', function (done) {
-      var smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
       smarty.suggest('440 Park', function (err) {
         if (err) return done(err);
         query.should.have.properties({ prefix: '440 Park' });
@@ -189,7 +214,6 @@ describe('smartystreets-api', function () {
     });
 
     it('should accept camel case inputs', function (done) {
-      var smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
       var obj = { 
         prefix: '440 Park', 
         cityFilter: 'Chicago, New York'
@@ -202,7 +226,6 @@ describe('smartystreets-api', function () {
     });
 
     it('should accept snake case inputs', function (done) {
-      var smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
       var obj = { 
         prefix: '440 Park', 
         city_filter: 'Chicago, New York'
@@ -214,28 +237,16 @@ describe('smartystreets-api', function () {
       });
     });
 
-    it('should return error if prefix is invalid', function (done) {
-      var smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
-      var obj = { 
-        prefix: '440 Park', 
-        city_filter: 'Chicago, New York'
-      };
-      smarty.suggest(null, function (err) {
-        err.message.should.be.eql('Prefix is required.');
-        done();
-      });
+    it('should return error if prefix is invalid', function () {
+      (function(){
+        smarty.suggest(null);
+      }).should.throw(/pass a valid prefix object or string/);
     });
 
-    it('should return error if prefix is missing or undefined', function (done) {
-      var smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
-      var obj = { 
-        prefix: undefined, 
-        city_filter: 'Chicago, New York'
-      };
-      smarty.suggest(obj, function (err) {
-        err.message.should.be.eql('Prefix is required.');
-        done();
-      });
+    it('should return error if prefix is missing or undefined', function () {
+      (function(){
+        smarty.suggest({});
+      }).should.throw(/pass a valid prefix object or string/);
     });
 
   });
