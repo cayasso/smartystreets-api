@@ -165,11 +165,11 @@ smartyStreets.zipcode(address, function (err, data) {
   /*
   [
     {
-      "input_index": 0,
-      "city_states": [
+      "inputIndex": 0,
+      "cityStates": [
         {
           "city": "Cupertino",
-          "state_abbreviation": "CA",
+          "stateAbbreviation": "CA",
           "state": "California",
           "default_city": true,
           "mailable_city": true
@@ -178,17 +178,17 @@ smartyStreets.zipcode(address, function (err, data) {
       "zipcodes": [
         {
           "zipcode": "95014",
-          "zipcode_type": "S",
-          "county_fips": "06085",
-          "county_name": "Santa Clara",
+          "zipcodeType": "S",
+          "countyFips": "06085",
+          "countyName": "Santa Clara",
           "latitude": 37.32056,
           "longitude": -122.03866
         },
         {
           "zipcode": "95015",
-          "zipcode_type": "P",
-          "county_fips": "06085",
-          "county_name": "Santa Clara",
+          "zipcodeType": "P",
+          "countyFips": "06085",
+          "countyName": "Santa Clara",
           "latitude": 37.32292,
           "longitude": -122.05415
         }
