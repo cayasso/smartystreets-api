@@ -31,7 +31,7 @@ describe('smartystreets-api', function () {
   });
 
   it('should allow passing options', function () {
-    var smarty = SmartyStreets('abc', 'def123', { 
+    var smarty = SmartyStreets('abc', 'def123', {
       host: 'https://test.com',
       proxy: 'http://localhost:9001'
     });
@@ -48,7 +48,7 @@ describe('smartystreets-api', function () {
     beforeEach(function () {
 
       smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
-      
+
       nock('https://api.smartystreets.com')
         .get('/street-address')
         .query(true)
@@ -75,7 +75,7 @@ describe('smartystreets-api', function () {
       };
       smarty.address('440 Park Ave S, New York, NY, United States', function (err) {
         if (err) return done(err);
-        query.should.have.properties(obj);
+        should(query).have.properties(obj);
         done();
       });
     });
@@ -93,7 +93,7 @@ describe('smartystreets-api', function () {
       });
     });
 
-    it('should call GET on singgle object input', function (done) {
+    it('should call GET on single object input', function (done) {
       var obj = {
         input_id: 'abc',
         street: '440 Park Ave S',
@@ -102,7 +102,7 @@ describe('smartystreets-api', function () {
       };
       smarty.address(obj, function (err) {
         if (err) return done(err);
-        query.should.have.properties(obj);
+        should(query).have.properties(obj);
         done();
       });
     });
@@ -160,7 +160,7 @@ describe('smartystreets-api', function () {
       };
       smarty.zipcode(obj, function (err) {
         if (err) return done(err);
-        query.should.have.properties(obj);
+        should(query).have.properties(obj);
         done();
       });
     });
@@ -200,7 +200,7 @@ describe('smartystreets-api', function () {
     it('should call GET with prefix params when passed string', function (done) {
       smarty.suggest('440 Park', function (err) {
         if (err) return done(err);
-        query.should.have.properties({ prefix: '440 Park' });
+        should(query).have.properties({ prefix: '440 Park' });
         done();
       });
     });
@@ -208,31 +208,31 @@ describe('smartystreets-api', function () {
     it('should call GET with prefix params when passed string', function (done) {
       smarty.suggest('440 Park', function (err) {
         if (err) return done(err);
-        query.should.have.properties({ prefix: '440 Park' });
+        should(query).have.properties({ prefix: '440 Park' });
         done();
       });
     });
 
     it('should accept camel case inputs', function (done) {
-      var obj = { 
-        prefix: '440 Park', 
+      var obj = {
+        prefix: '440 Park',
         cityFilter: 'Chicago, New York'
       };
       smarty.suggest(obj, function (err) {
         if (err) return done(err);
-        query.should.have.properties({ city_filter: 'Chicago, New York' });
+        should(query).have.properties({ city_filter: 'Chicago, New York' });
         done();
       });
     });
 
     it('should accept snake case inputs', function (done) {
-      var obj = { 
-        prefix: '440 Park', 
+      var obj = {
+        prefix: '440 Park',
         city_filter: 'Chicago, New York'
       };
       smarty.suggest(obj, function (err) {
         if (err) return done(err);
-        query.should.have.properties(obj);
+        should(query).have.properties(obj);
         done();
       });
     });
