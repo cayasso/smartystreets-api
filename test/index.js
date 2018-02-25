@@ -75,7 +75,7 @@ describe('smartystreets-api', function () {
       };
       smarty.address('440 Park Ave S, New York, NY, United States', function (err) {
         if (err) return done(err);
-        query.should.have.properties(obj);
+        should(query).have.properties(obj);
         done();
       });
     });
@@ -102,7 +102,7 @@ describe('smartystreets-api', function () {
       };
       smarty.address(obj, function (err) {
         if (err) return done(err);
-        query.should.have.properties(obj);
+        should(query).have.properties(obj);
         done();
       });
     });
@@ -160,7 +160,7 @@ describe('smartystreets-api', function () {
       };
       smarty.zipcode(obj, function (err) {
         if (err) return done(err);
-        query.should.have.properties(obj);
+        should(query).have.properties(obj);
         done();
       });
     });
@@ -200,7 +200,7 @@ describe('smartystreets-api', function () {
     it('should call GET with prefix params when passed string', function (done) {
       smarty.suggest('440 Park', function (err) {
         if (err) return done(err);
-        query.should.have.properties({ prefix: '440 Park' });
+        should(query).have.properties({ prefix: '440 Park' });
         done();
       });
     });
@@ -208,7 +208,7 @@ describe('smartystreets-api', function () {
     it('should call GET with prefix params when passed string', function (done) {
       smarty.suggest('440 Park', function (err) {
         if (err) return done(err);
-        query.should.have.properties({ prefix: '440 Park' });
+        should(query).have.properties({ prefix: '440 Park' });
         done();
       });
     });
@@ -220,7 +220,7 @@ describe('smartystreets-api', function () {
       };
       smarty.suggest(obj, function (err) {
         if (err) return done(err);
-        query.should.have.properties({ city_filter: 'Chicago, New York' });
+        should(query).have.properties({ city_filter: 'Chicago, New York' });
         done();
       });
     });
@@ -232,7 +232,7 @@ describe('smartystreets-api', function () {
       };
       smarty.suggest(obj, function (err) {
         if (err) return done(err);
-        query.should.have.properties(obj);
+        should(query).have.properties(obj);
         done();
       });
     });
