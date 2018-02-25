@@ -31,7 +31,7 @@ describe('smartystreets-api', function () {
   });
 
   it('should allow passing options', function () {
-    var smarty = SmartyStreets('abc', 'def123', { 
+    var smarty = SmartyStreets('abc', 'def123', {
       host: 'https://test.com',
       proxy: 'http://localhost:9001'
     });
@@ -48,7 +48,7 @@ describe('smartystreets-api', function () {
     beforeEach(function () {
 
       smarty = SmartyStreets(AUTH_ID, AUTH_TOKEN);
-      
+
       nock('https://api.smartystreets.com')
         .get('/street-address')
         .query(true)
@@ -93,7 +93,7 @@ describe('smartystreets-api', function () {
       });
     });
 
-    it('should call GET on singgle object input', function (done) {
+    it('should call GET on single object input', function (done) {
       var obj = {
         input_id: 'abc',
         street: '440 Park Ave S',
@@ -214,8 +214,8 @@ describe('smartystreets-api', function () {
     });
 
     it('should accept camel case inputs', function (done) {
-      var obj = { 
-        prefix: '440 Park', 
+      var obj = {
+        prefix: '440 Park',
         cityFilter: 'Chicago, New York'
       };
       smarty.suggest(obj, function (err) {
@@ -226,8 +226,8 @@ describe('smartystreets-api', function () {
     });
 
     it('should accept snake case inputs', function (done) {
-      var obj = { 
-        prefix: '440 Park', 
+      var obj = {
+        prefix: '440 Park',
         city_filter: 'Chicago, New York'
       };
       smarty.suggest(obj, function (err) {
